@@ -1,0 +1,21 @@
+logging:
+  level:
+    es.upm.miw: DEBUG
+
+spring:
+  data:
+    mongodb:
+      auto-index-creation: false
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 5.0.14
+
+eureka:
+  client:
+    enabled: false
+  instance:
+    leaseRenewalIntervalInSeconds: 0
+    leaseExpirationDurationInSeconds: 0
