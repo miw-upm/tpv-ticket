@@ -1,6 +1,7 @@
 package es.upm.miw.configurations;
 
 import es.upm.miw.domain.model.Scope;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,8 +64,8 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
     }
 
     @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri("http://localhost:8081/oauth2/jwks").build();
+    public JwtDecoder jwtDecoder(@Value("${spring.security.oauth2.jwk-uri}") String jwkUri) {
+        return NimbusJwtDecoder.withJwkSetUri(jwkUri).build();
     }
 
     @Bean
