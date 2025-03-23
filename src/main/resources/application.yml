@@ -2,7 +2,7 @@ spring:
   application:
     name: tpv-article
   profiles:
-  # Profile ----------------------------------------
+    # Profile ----------------------------------------
     active: dev
   # ------------------------------------------------
   output:
@@ -44,3 +44,10 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000

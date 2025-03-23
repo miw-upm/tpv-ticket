@@ -10,7 +10,7 @@
 1. Clonar el repositorio en tu equipo, **mediante consola**:
 ```sh
 > cd <folder path>
-> git clone https://github.com/miw-upm/tpv-article
+> git clone https://github.com/miw-upm/tpv-articleDto
 ```
 2. Importar el proyecto mediante **IntelliJ IDEA**  
    * **Open**, y seleccionar la carpeta del proyecto.

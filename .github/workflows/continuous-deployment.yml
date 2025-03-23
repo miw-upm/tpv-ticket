@@ -4,7 +4,7 @@ on:
     branches: [master]
 
 env:
-  REPOSITORY: ${{ github.repository }} # <user>/<repo>
+  REPOSITORY: ${{ github.repository }} # <userDto>/<repo>
   GHCR_URL: ghcr.io # GitHub Container Registry
 
 jobs:

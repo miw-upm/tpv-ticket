@@ -1,11 +1,12 @@
 package es.upm.miw.configurations;
 
-import es.upm.miw.domain.model.Scope;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +29,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableMethodSecurity
 public class ResourceServerConfig {  // validate tokens y security APIs con SCOPE_*.
+    private final static String SCOPE_PREFIX = "SCOPE_";
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -44,7 +46,7 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix(Scope.PREFIX);
+        grantedAuthoritiesConverter.setAuthorityPrefix(SCOPE_PREFIX);
         grantedAuthoritiesConverter.setAuthoritiesClaimName("scope");
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
@@ -55,7 +57,7 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
                 return Optional.ofNullable(jwt.getClaimAsStringList("cognito:groups"))// AWS cognito: group as scope
                         .orElse(Collections.emptyList())
                         .stream()
-                        .map(group -> new SimpleGrantedAuthority(Scope.PREFIX + group))
+                        .map(group -> new SimpleGrantedAuthority(SCOPE_PREFIX + group))
                         .collect(Collectors.toList());
             }
 
@@ -72,5 +74,10 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
     @LoadBalanced
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }
