@@ -29,7 +29,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableMethodSecurity
 public class ResourceServerConfig {  // validate tokens y security APIs con SCOPE_*.
-    private final static String SCOPE_PREFIX = "SCOPE_";
+    private static final String SCOPE_PREFIX = "SCOPE_";
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {

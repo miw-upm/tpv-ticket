@@ -1,5 +1,8 @@
 package es.upm.miw.infrastructure.resources.httperrors;
 
+import lombok.Getter;
+
+@Getter
 public class ErrorMessage {
 
     private final String error;
@@ -10,18 +13,6 @@ public class ErrorMessage {
         this.error = exception.getClass().getSimpleName();
         this.message = exception.getMessage();
         this.code = code;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public Integer getCode() {
-        return code;
     }
 
     @Override

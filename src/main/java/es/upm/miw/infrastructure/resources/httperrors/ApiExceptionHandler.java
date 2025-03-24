@@ -1,6 +1,8 @@
 package es.upm.miw.infrastructure.resources.httperrors;
 
 import es.upm.miw.domain.exceptions.*;
+import feign.FeignException;
+import feign.RetryableException;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -89,7 +91,9 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
     @ExceptionHandler({
-            BadGatewayException.class
+            BadGatewayException.class,
+            RetryableException.class,
+            FeignException.class
     })
     @ResponseBody
     public ErrorMessage badGateway(Exception exception) {
