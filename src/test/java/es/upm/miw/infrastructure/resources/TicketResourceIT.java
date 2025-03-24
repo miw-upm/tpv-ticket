@@ -49,7 +49,7 @@ class TicketResourceIT {
                         ArticleDto.builder().id(invocation.getArgument(0)).barcode("01234567891123")
                                 .retailPrice(BigDecimal.ONE).description("mock").build());
 
-        mockMvc.perform(get(TicketResource.TICKET + TicketResource.URL_TOKEN, "HuABW1VRQy-LsEi5D-pBVA"))
+        mockMvc.perform(get(TicketResource.TICKETS + TicketResource.URL_TOKEN, "AAAABBBBCCCCDDDDEEEE00"))
                 .andExpect(status().isOk());
     }
 

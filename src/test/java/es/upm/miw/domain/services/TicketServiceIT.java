@@ -41,13 +41,13 @@ class TicketServiceIT {
                         ArticleDto.builder().id(invocation.getArgument(0)).barcode("01234567891123")
                                 .retailPrice(BigDecimal.ONE).description("mock").build());
 
-        Ticket ticket = ticketService.readByUrlToken("HuABW1VRQy-LsEi5D-pBVA");
+        Ticket ticket = ticketService.readByUrlToken("AAAABBBBCCCCDDDDEEEE00");
         assertThat(ticket)
                 .isNotNull()
                 .satisfies(retrieveTicket -> {
                     assertThat(retrieveTicket.getUserDto().getFirstName()).isEqualTo("mock");
                     assertThat(retrieveTicket.getUserDto().getMobile()).isEqualTo("666000666");
-                    assertThat(retrieveTicket.getUrlToken()).isEqualTo("HuABW1VRQy-LsEi5D-pBVA");
+                    assertThat(retrieveTicket.getUrlToken()).isEqualTo("AAAABBBBCCCCDDDDEEEE00");
                 });
     }
 

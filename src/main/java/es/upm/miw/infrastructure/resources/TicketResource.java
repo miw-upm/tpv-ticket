@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @PreAuthorize(Security.ADMIN_MANAGER_OPERATOR)
-@RequestMapping(TicketResource.TICKET)
+@RequestMapping(TicketResource.TICKETS)
 public class TicketResource {
-    public static final String TICKET = "/ticket";
+    public static final String TICKETS = "/tickets";
 
     public static final String URL_TOKEN = "/{urlToken}";
 

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: tpv-article
+    name: tpv-ticket
   profiles:
     # Profile ----------------------------------------
     active: dev

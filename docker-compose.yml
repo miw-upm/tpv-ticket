@@ -1,13 +1,13 @@
 services:
-  tpv-article:
+  tpv-ticket:
     build: .
-    image: tpv-article:1.0.0
-    container_name: tpv-article
+    image: tpv-ticket:1.0.0
+    container_name: tpv-ticket
     restart: always
     ports:
-      - "8082:8082"
+      - "8083:8083"
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://mongo:mongo@mongo:27017/tpvarticle?authSource=admin
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:mongo@mongo:27017/tpvticket?authSource=admin
       EUREKA_CLIENT_SERVICE-URL_DEFAULTZONE: http://tpv-eureka:8761/eureka/
     networks:
       - miw
