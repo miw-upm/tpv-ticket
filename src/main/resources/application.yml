@@ -2,7 +2,7 @@ spring:
   application:
     name: tpv-ticket
   profiles:
-  # Profile ----------------------------------------
+    # Profile ----------------------------------------
     active: dev
   # ------------------------------------------------
   output:
@@ -15,6 +15,9 @@ spring:
   security:
     oauth2:
       jwk-uri: http://localhost:8081/oauth2/jwks
+      token-uri: http://localhost:8081/oauth2/token
+      api-client-id: api-client-id
+      api-client-secret: api-client-secret
 
 info:
   app:

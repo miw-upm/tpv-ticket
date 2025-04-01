@@ -9,12 +9,22 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 
 @Configuration
 public class FeignConfig {
+
+    private final TokenManager tokenManager;
+
+    public FeignConfig(TokenManager tokenManager) {
+        this.tokenManager = tokenManager;
+    }
+
     @Bean
     public RequestInterceptor requestInterceptor() {
         return template -> {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication instanceof JwtAuthenticationToken jwtAuth) {
                 String tokenValue = jwtAuth.getToken().getTokenValue();
+                template.header("Authorization", "Bearer " + tokenValue);
+            } else {
+                String tokenValue = tokenManager.getToken();
                 template.header("Authorization", "Bearer " + tokenValue);
             }
         };
