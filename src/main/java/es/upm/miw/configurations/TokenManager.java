@@ -33,7 +33,7 @@ public class TokenManager {
         this.apiClientId = apiClientId;
         this.apiClientSecret = apiClientSecret;
         this.tokenUri = tokenUri;
-        this.token=null;
+        this.token = null;
     }
 
     private void obtainAccessToken() {
@@ -54,8 +54,8 @@ public class TokenManager {
         Map<?, ?> responseBody = Objects.requireNonNull(
                 new RestTemplate().postForEntity(this.tokenUri, request, Map.class).getBody()
         );
-        this.token =  responseBody.get("access_token").toString();
-        this.expiry =  Instant.now().plusSeconds(Long.parseLong(responseBody.get("expires_in").toString()));
+        this.token = responseBody.get("access_token").toString();
+        this.expiry = Instant.now().plusSeconds(Long.parseLong(responseBody.get("expires_in").toString()));
     }
 
     public synchronized void invalidateToken() {
