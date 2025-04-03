@@ -17,5 +17,4 @@ public class ArticleDto {
     private String barcode;
     private String description;
     private BigDecimal retailPrice;
-
 }

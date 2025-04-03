@@ -17,4 +17,7 @@ networks:
   miw:
     external: true
 
-#> docker compose up --build -d
+#> docker compose -f docker-compose-dev.yml up --build -d
+
+#> ports: -"0:8083" or remove
+#> docker compose -f docker-compose-dev.yml -p tpv-tickets up --scale tpv-ticket=2 -d

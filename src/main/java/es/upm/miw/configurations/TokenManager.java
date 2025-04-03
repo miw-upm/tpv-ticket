@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +16,7 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
 
-@Service
+@Component
 public class TokenManager {
     public static final String SCOPE_URL_TOKEN = "url_token";
     private final String apiClientId;
