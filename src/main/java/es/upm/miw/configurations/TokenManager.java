@@ -18,7 +18,8 @@ import java.util.Objects;
 
 @Component
 public class TokenManager {
-    public static final String SCOPE_URL_TOKEN = "url_token";
+    public static final String SCOPE_PROFILE = "profile";
+    public static final String ROLE_URL_TOKEN = "url_token";
     private final String apiClientId;
     private final String apiClientSecret;
     private final String tokenUri;
@@ -47,7 +48,8 @@ public class TokenManager {
 
         MultiValueMap<String, String> credentialsBody = new LinkedMultiValueMap<>();
         credentialsBody.add("grant_type", "client_credentials");
-        credentialsBody.add("scope", TokenManager.SCOPE_URL_TOKEN);
+        credentialsBody.add("scope", SCOPE_PROFILE);
+        credentialsBody.add("role", ROLE_URL_TOKEN);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(credentialsBody, headers);
 

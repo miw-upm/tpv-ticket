@@ -25,7 +25,9 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableWebSecurity
 @EnableMethodSecurity
 public class ResourceServerConfig {  // validate tokens y security APIs con SCOPE_*.
-    private static final String SCOPE_PREFIX = "SCOPE_";
+    public static final String CLAIM_NAME = "roles";
+    public static final String AWS_CLAIM_NAME = "cognito:groups";
+    private static final String PREFIX = "ROLE_";
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -42,21 +44,19 @@ public class ResourceServerConfig {  // validate tokens y security APIs con SCOP
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix(SCOPE_PREFIX);
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("scope");
+        grantedAuthoritiesConverter.setAuthorityPrefix(PREFIX);
+        grantedAuthoritiesConverter.setAuthoritiesClaimName(CLAIM_NAME);
 
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
             if (jwt.getClaim("scope") != null) { // standard Auth2
                 return grantedAuthoritiesConverter.convert(jwt);
-            } else {
-                return Optional.ofNullable(jwt.getClaimAsStringList("cognito:groups"))// AWS cognito: group as scope
-                        .orElse(Collections.emptyList())
-                        .stream()
-                        .map(group -> new SimpleGrantedAuthority(SCOPE_PREFIX + group))
-                        .collect(Collectors.toList());
             }
-
+            return Optional.ofNullable(jwt.getClaimAsStringList(AWS_CLAIM_NAME))// AWS cognito: group as scope
+                    .orElse(Collections.emptyList())
+                    .stream()
+                    .map(group -> new SimpleGrantedAuthority(PREFIX + group))
+                    .collect(Collectors.toList());
         });
         return jwtAuthenticationConverter;
     }
